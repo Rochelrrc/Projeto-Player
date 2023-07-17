@@ -1,5 +1,5 @@
 import './App.css';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import logo from './assets/logo.svg';
 import profilePic from './assets/ProfileImg.jpg';
 import { musics } from './musics';
@@ -8,12 +8,11 @@ import stopBtn from './assets/stop.svg';
 import prevBtn from './assets/previous.svg';
 import PauseBtn from './assets/pause.svg';
 import nextBtn from './assets/next.svg';
-import { listagem } from './components/ListagemUrls';
+
 
 
 function App() {
   const nickName = 'Rochel';
-  const music1 = 'https://storage.googleapis.com/pedagogico/frontend-files/aula-react-referencias-eventos/The%20Von%20Trapp%20Family%20Choir%20-%20Alge.mp3';
 
 
 
@@ -26,9 +25,9 @@ function App() {
 
 
   const [playing, setPlaying] = useState(false);
-  const [musicName, setMusicName] = useState();
-  const [artistName, setArtistName] = useState();
-  const [musicUrl, setMusicUrl] = useState(music1);
+
+  const [musicData, setMusicData] = useState(musics[0]);
+
 
 
 
@@ -64,101 +63,52 @@ function App() {
   }
 
 
-  function editName() {
-    {
-      musics.map((item) => {
-        if (item.url === musicUrl) {
-          setArtistName(item.artist);
-          setMusicName(item.title)
-        }
-      })
+  useEffect(() => {
+    console.log(musicData);
+    audioRef.current.src = musicData.url;
+
+    if (playing) {
+      audioRef.current.play()
     }
 
-  }
+  }, [musicData])
 
 
-  function handlePrev(list) {
-    let musicInPlay = 0;
+  function handlePrev(id) {
+    console.log(id);
 
-    {
-      musics.map((item) => {
-        if (item.url === musicUrl) {
-          musicInPlay = item.id
-        }
+    if (id === 1) {
+      setMusicData(musics[musics.length - 1])
 
-      })
+      return
     }
 
-    editName();
-
-
-
-
-    if (musicInPlay == 1) {
-      audioRef.current.src = (listagem[3]);
-      setMusicUrl(listagem[3])
-    }
-
-    if (musicInPlay == 2) {
-      audioRef.current.src = (listagem[0]);
-      setMusicUrl(listagem[0])
-    }
-
-    if (musicInPlay == 3) {
-      audioRef.current.src = (listagem[1]);
-      setMusicUrl(listagem[1])
-    }
-
-    if (musicInPlay == 4) {
-      audioRef.current.src = (listagem[2]);
-      setMusicUrl(listagem[2])
-    }
-
-
-    setPlaying(true);
-    audioRef.current.play()
+    setMusicData(musics[id - 2])
 
 
 
   }
 
-  function handleNext(list) {
-    let musicInPlay = 3;
-    {
-      musics.map((item) => {
-        if (item.url === musicUrl) {
-          return musicInPlay = item.id
-        }
-      })
+
+
+
+
+  function handleNext(id) {
+    console.log(id);
+
+    if (id === musics.length) {
+      setMusicData(musics[0])
+
+      return
     }
 
+    setMusicData(musics[id])
 
-    if (musicInPlay == 1) {
-      audioRef.current.src = (listagem[1]);
-      setMusicUrl(listagem[1])
-    }
-
-    if (musicInPlay == 2) {
-      audioRef.current.src = (listagem[2]);
-      setMusicUrl(listagem[2])
-    }
-
-    if (musicInPlay == 3) {
-      audioRef.current.src = (listagem[3]);
-      setMusicUrl(listagem[3])
-    }
-
-    if (musicInPlay == 4) {
-      audioRef.current.src = (listagem[0]);
-      setMusicUrl(listagem[0])
-    }
-
-    editName()
-    audioRef.current.play();
-    setPlaying(true)
   }
+
 
   function handleSelect(music) {
+
 
     intervalProgress = setInterval(() => {
       if (audioRef.current.paused) {
@@ -170,13 +120,10 @@ function App() {
       progressRef.current.style.width = `${currentProgres}%`
     }, 1000)
 
-    audioRef.current.src = (music.url)
-
-    setMusicName(music.title);
-    setArtistName(music.artist);
-
-    audioRef.current.play();
+    setMusicData(music);
     setPlaying(true);
+    audioRef.current.play();
+
   }
 
 
@@ -219,8 +166,8 @@ function App() {
       <section className='player-music'>
 
         <div className='info-music'>
-          <strong>{musicName}</strong>
-          <p>{artistName}</p>
+          <strong>{musicData.title}</strong>
+          <p>{musicData.artist}</p>
         </div>
 
         <div className='containerControls'>
@@ -228,11 +175,11 @@ function App() {
           <div className='controls-music'>
 
             <img className='stopBtn' onClick={() => handleStop()} src={stopBtn} alt='botao para parar a musica' />
-            <img className='prevBtn' onClick={() => handlePrev()} src={prevBtn} alt='botao para voltar a musica' />
+            <img className='prevBtn' onClick={() => handlePrev(musicData.id)} src={prevBtn} alt='botao para voltar a musica' />
 
             <img className='playBtn' onClick={() => handlePlayPause()} src={playing ? PauseBtn : PlayBtn} alt='botao play/pause' />
 
-            <img className='nextBtn' onClick={() => handleNext()} src={nextBtn} alt='botao para passar a musica' />
+            <img className='nextBtn' onClick={() => handleNext(musicData.id)} src={nextBtn} alt='botao para passar a musica' />
 
           </div>
 
