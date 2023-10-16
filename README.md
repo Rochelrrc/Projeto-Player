@@ -9,6 +9,9 @@ Ao abrir o site, basta clicar na capa da música que quer ouvir e ela ira começ
 
 Os controles possuem uma funcionalidade padrão que são(da esquerda para a direita): botão de stop(para a música e volta ao começo dela), botão prev(volta para a música anterior ou, caso não haja anterior, passa a música da outra ponta), botão play/pause(inicia e pausa a musica), botao de next(tem funcionalidade similar ao prev, porém avançando na playist.).
 
+## Test
+Link para teste: https://projetorrc-player.netlify.app
+
 ## Preview
 
 -Layout inicial:
