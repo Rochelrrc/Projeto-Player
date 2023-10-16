@@ -7,8 +7,22 @@ Esse desafio consistia em desenvolver um player de músicas, com referência no 
 
 Ao abrir o site, basta clicar na capa da música que quer ouvir e ela ira começar a tocar.
 
-Os controles possuem uma funcionalidade padrão que são(da esquerda para a direita): botão de stop(para a música e volta ao começo dela), botão prev(volta para a música anterior ou, caso não haja anterior, passa a música da outra ponta), botão play/pause(inicia e pausa a musica), botao de next(tem funcionalidade similar ao prev).
+Os controles possuem uma funcionalidade padrão que são(da esquerda para a direita): botão de stop(para a música e volta ao começo dela), botão prev(volta para a música anterior ou, caso não haja anterior, passa a música da outra ponta), botão play/pause(inicia e pausa a musica), botao de next(tem funcionalidade similar ao prev, porém avançando na playist.).
 
+## Preview
 
+-Layout inicial:
+<img src='./src/assets/exemplo-readme.png'>
 
+-Botão Play/Pause: 
 
+<img src='./src/assets/play.svg'>  <img src='./src/assets/pause.svg'>
+
+-Botão Stop:
+
+<img src='./src/assets/stop.svg' />
+
+-Botão Prev/Next:
+
+<img src='./src/assets/previous.svg'/>
+<img src='./src/assets/next.svg'>
